@@ -13,3 +13,14 @@ Command: cut -f 1 data_summary.tsv | tail -n +2 | grep -o ".*[c,C].*[c,C]"
 
 Genomes woth 2 or more "c" but no coccus in the name: 10
 Command: cut -f 1 data_summary.tsv | tail -n +2 | grep -v "coccus" | grep -i -c ".*[c].*[c]"
+
+PROBLEM 5)
+Files greater than 3 Mb:
+GCA_000006745.1_ASM674v1_genomic.fna
+GCA_000008565.1_ASM856v1_genomic.fna
+GCF_000006745.1_ASM674v1_genomic.fna
+GCF_000008565.1_ASM856v1_genomic.fna
+GCA_000007125.1_ASM712v1_genomic.fna
+GCF_000007125.1_ASM712v1_genomic.fna
+
+Command: find -size +3M
