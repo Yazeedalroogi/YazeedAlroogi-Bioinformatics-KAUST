@@ -3,12 +3,12 @@ PROBLEM 3)
 
 Largest: 4033464
 
-Command: cut -f 11 data_summary.tsv | grep -o "[0-9]*" | sort -r | head -n 1
+Command: cut -f 11 data_summary.tsv | grep -o "[0-9]*" | sort -r | uniq -d | head -n 1
 
 
 Smallest: 1042519
 
-Command: cut -f 11 data_summary.tsv | grep -o "[0-9]*" | sort | head -n 1
+Command: cut -f 11 data_summary.tsv | grep -o "[0-9]*" | sort | uniq -d | head -n 1
 
 
 PROBLEM 4)
@@ -28,17 +28,9 @@ PROBLEM 5)
 
 Files greater than 3 Mb:
 
-GCA_000006745.1_ASM674v1_genomic.fna
-
-GCA_000008565.1_ASM856v1_genomic.fna
-
-GCF_000006745.1_ASM674v1_genomic.fna
-
-GCF_000008565.1_ASM856v1_genomic.fna
-
-GCA_000007125.1_ASM712v1_genomic.fna
-
-GCF_000007125.1_ASM712v1_genomic.fna
+./GCA_000006745.1/GCA_000006745.1_ASM674v1_genomic.fna
+./GCA_000008565.1/GCA_000008565.1_ASM856v1_genomic.fna
+./GCA_000007125.1/GCA_000007125.1_ASM712v1_genomic.fna
 
 
-Command: find -size +3M
+Command: find -name 'GCA*' -size +3M
