@@ -5,11 +5,11 @@ LOG FOR GENE FINDER
 
 The code for the implementation is found below:
 
+
 from Bio.Seq import Seq
 from Bio.SeqUtils import GC, nt_search
 from Bio import SeqIO
 import sys
-
 input_file = sys.argv[1]
 def gene_finder(file):
     with open(file) as f:
