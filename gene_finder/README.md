@@ -1,3 +1,10 @@
+LOG FOR GENE FINDER
+
+
+1) Made a gene finder to read a fasta/fna file and find all genes in all reading frames ignoring reverse complements. The algorithm does not consider overlapping genes. That is, if there's a start codon between an upstream start codon and a downstream stop codon, it is ignored and not considered.
+
+The code for the implementation is found below:
+
 from Bio.Seq import Seq
 from Bio.SeqUtils import GC, nt_search
 from Bio import SeqIO
@@ -9,7 +16,7 @@ def gene_finder(file):
         dna = ""
         for record in SeqIO.parse(f, "fasta"):
             dna += record.seq
-                
+
         start_codon = "ATG"
         stop_codons = ["TAA", "TAG", "TGA"]
 
@@ -37,4 +44,4 @@ def gene_finder(file):
 
 
 all_genes = gene_finder(input_file)
-print(all_genes, len(all_genes))        
+print(all_genes, len(all_genes))
