@@ -25,3 +25,9 @@ The code for this problem is saved on GitHub under "P4_gene_finder.sh", and the 
 5) Added a minimum codon parameter. The parameter is optional and its default value is 100. This is done through a try except block that checks if the user inputted a second parameter (codon minimum) or not and either assigns the input value or the default value.
 
 The code for this problem is saved on GitHub under "P5_gene_finder.py"
+
+
+
+6) Added a filter for the Shine-Dalgarno sequence, which searches for the Shine-Dalgarno sequence upstream of the start codon. How far the algorithm searches is 20bp by default, but can be specificed by the user as a parameter. In this implementation, 20bp away means that the algorithm looks at the 20bps upstream of a start codon and searches for the Shine-Dalgarno sequence in those 20bps. For efficiency, this step is performed immediately after finding a start codon. If the Shine-Dalgarno sequence exists, then the algorithm searches for the stop codon. But if the sequence does not exist, the programs skips to looking for the next start codon.
+
+The code for this problem is saved on GitHub under "P6_gene_finder.py"
