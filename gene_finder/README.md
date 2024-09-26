@@ -20,3 +20,8 @@ The code for this problem is saved on GitHub under "P3_gene_finder.py"
 4) Ran the algorithm on the 14 bacteria genomes using the bash for loop, and saved each one to the same .txt file. To distinguish between each genome, the file name is first appeneded to the .txt file and then its associated analysis.
 
 The code for this problem is saved on GitHub under "P4_gene_finder.sh", and the output file is under "P4_gene_finder_result.txt"
+
+
+5) Added a minimum codon parameter. The parameter is optional and its default value is 100. This is done through a try except block that checks if the user inputted a second parameter (codon minimum) or not and either assigns the input value or the default value.
+
+The code for this problem is saved on GitHub under "P5_gene_finder.py"
