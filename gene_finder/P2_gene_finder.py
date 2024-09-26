@@ -3,6 +3,7 @@ from Bio.SeqUtils import GC, nt_search
 from Bio import SeqIO
 import sys
 
+
 input_file = sys.argv[1]
 def gene_finder(file):
     with open(file) as f:
@@ -12,7 +13,7 @@ def gene_finder(file):
 
 
         rev_comp = str(Seq(dna).reverse_complement())
-            
+
         start_codon = "ATG"
         stop_codons = ["TAA", "TAG", "TGA"]
 
@@ -25,7 +26,7 @@ def gene_finder(file):
         curr_stop  = -1
         text_ind = 0
 
-        
+        text_ind = 0
         while text_ind < len(dna) - codonL:
             if dna[text_ind:text_ind+codonL] == start_codon:
                 curr_start = text_ind
@@ -52,14 +53,7 @@ def gene_finder(file):
 
             text_ind += 1
 
-        proteins = []
-        for gene in genes:
-            rna = Seq(gene[:-3]).transcribe()
-            proteins.append(str(rna.translate()))
+        return genes
 
-        return list(set(proteins))
-
-
-all_proteins = gene_finder(input_file)
-for protein in all_proteins:
-    print(protein)        
+genes = gene_finder(input_file)
+print(genes)

@@ -1,132 +1,17 @@
 LOG FOR GENE FINDER
 
 
-1) Made a gene finder to read a fasta/fna file and find all genes in all reading frames ignoring reverse complements. The algorithm does not consider overlapping genes. That is, if there's a start codon between an upstream start codon and a downstream stop codon, it is ignored and not considered.
+1) Made a gene finder to read a fasta/fna file and find all genes in all reading frames ignoring reverse complements. The algorithm does considers overlapping genes. Thus, any region between a start and a stop codon is registered as a gene. I initially tried to ignore start codons in the middle of an ORF, but the Rosalind problem (problem 72) seemed to require consideration of ALL regions between a start and stop codon. The algorithm first records the provided genome, then through a while loop, the program looks at every nucleotide in the sequence searching for a start codon. If a start codon is found, its position is saved in a variable and another while loop is started from that start codon until a stop codon is found. The second while loop increments by values of 3 to maintain the reading frame between the start and stop codons. But the first while loop increments by values of 1 to find start codons in any reading frame.
 
-The code for the implementation is found below:
-
-
-from Bio.Seq import Seq
-from Bio.SeqUtils import GC, nt_search
-from Bio import SeqIO
-import sys
-input_file = sys.argv[1]
-def gene_finder(file):
-    with open(file) as f:
-        dna = ""
-        for record in SeqIO.parse(f, "fasta"):
-            dna += record.seq
-
-        start_codon = "ATG"
-        stop_codons = ["TAA", "TAG", "TGA"]
-
-        codonL = 3
-        frame = 0
-
-        genes = []
-
-        curr_start = -1
-        curr_stop  = -1
-        text_ind = 0
-        while text_ind < len(dna) - codonL:
-            if dna[text_ind:text_ind+codonL] == start_codon:
-                curr_start = text_ind
-                for i in range(curr_start+codonL, len(dna), 3):
-                    if dna[i:i+codonL] in stop_codons:
-                        curr_stop = i+codonL
-                        genes.append(dna[curr_start:curr_stop])
-                        text_ind = curr_stop
-                        break
-
-            text_ind += 1
-
-        return genes
+The code for this problem is saved on GitHub under "P1_gene_finder.py"
 
 
-all_genes = gene_finder(input_file)
-print(all_genes, len(all_genes))
+2) Added the reverse complement to the same algorithm from above. First the reverse complement is found using BioPython. Then the same approach from Problem 1 is repeated for both the sequence and its reverse complement.
+
+The code for this problem is saved on GitHub under "P2_gene_finder.py"
 
 
+3) After performing the algorithm from problems 2, the genes found are converted to proteins by using BioPython functions to first transcribe each gene and then translate it. To handle repeated proteins, the output protein list is converted to a set and then back to a list.
 
+The code for this problem is saved on GitHub under "P3_gene_finder.py"
 
-2) Added the reverse complement to the same algorithm from above. The code is found below:
-
-
-from Bio.Seq import Seq
-from Bio.SeqUtils import GC, nt_search
-from Bio import SeqIO
-import sys
-
-def reverse_complement(dna):
-    rev_comp = ""
-
-    for nuc in dna:
-        if nuc == "A":
-            rev_comp += "T"
-
-        if nuc == "T":
-            rev_comp += "A"
-
-        if nuc == "C":
-            rev_comp += "G"
-
-        if nuc == "G":
-            rev_comp += "C"
-
-    return rev_comp
-
-
-input_file = sys.argv[1]
-def gene_finder(file):
-    with open(file) as f:
-        dna = ""
-        for record in SeqIO.parse(f, "fasta"):
-            dna += record.seq
-
-
-        rev_comp = reverse_complement(dna)
-
-        start_codon = "ATG"
-        stop_codons = ["TAA", "TAG", "TGA"]
-
-        codonL = 3
-        frame = 0
-
-        genes = []
-
-        curr_start = -1
-        curr_stop  = -1
-        text_ind = 0
-
-
-        while text_ind < len(dna) - codonL:
-            if dna[text_ind:text_ind+codonL] == start_codon:
-                curr_start = text_ind
-                for i in range(curr_start+codonL, len(dna), 3):
-                    if dna[i:i+codonL] in stop_codons:
-                        curr_stop = i+codonL
-                        genes.append(dna[curr_start:curr_stop])
-                        text_ind = curr_stop
-                        break
-
-            text_ind += 1
-
-
-        text_ind = 0
-        while text_ind < len(rev_comp) - codonL:
-            if rev_comp[text_ind:text_ind+codonL] == start_codon:
-                curr_start = text_ind
-                for i in range(curr_start+codonL, len(rev_comp), 3):
-                    if rev_comp[i:i+codonL] in stop_codons:
-                        curr_stop = i+codonL
-                        genes.append(rev_comp[curr_start:curr_stop])
-                        text_ind = curr_stop
-                        break
-
-            text_ind += 1
-
-        return genes
-
-
-all_genes = gene_finder(input_file)
-print(all_genes, len(all_genes))
