@@ -76,6 +76,8 @@ def gene_finder(file, codon_min, shine_range):
                                 text_ind = curr_start + codonL
                                 break
 
+                            break
+
             text_ind += 1
 
 
@@ -111,6 +113,8 @@ def gene_finder(file, codon_min, shine_range):
                                 text_ind = curr_start + codonL
                                 break
 
+                            break
+
             text_ind += 1
 
         proteins = []
@@ -121,5 +125,6 @@ def gene_finder(file, codon_min, shine_range):
         return genes, list(set(proteins))
 
 
-all_genes = gene_finder(input_file, codon_min, shine_range)
-print(all_genes)        
+all_genes, all_proteins = gene_finder(input_file, codon_min, shine_range)
+for protein in all_proteins:
+    print(protein)        
