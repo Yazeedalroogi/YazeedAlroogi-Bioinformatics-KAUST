@@ -45,3 +45,21 @@ Finally, I ran this command to save the grep result in my .tsv file:
 Comparing the prokka CDS counts with the prodigal counts, there are slight differences. Across the board, prodigal had either an equal or higher number of genes for each genomes. I think the reason behind this is that prodigal does not specif the gene type, while prokka labels each genes as either CDS or tRNA (and maybe other labels as well) in the .tsv file under the ftype column. Thus, looking at only CDS genes from prokka will always result in one of two cases. a) Prokka only found CDS genes, and thus has an equal number of CDS genes to the genes found by prodigal. b) Prokka found more than one type of gene, and thus has a smaller number of CDS genes to the genes found by prodigal.
 
 The script file is available on Github under "prokka_script.sh", and the results are under "prokka_results.tsv"  
+
+
+5) I ran bash script on all .tsv files output from prokka. I first cut the fourth column of the .tsv which includes gene names. Then, I added all gene names from all .tsv files into one .txt file through a for loop. Finally, I ran a command to find all unique gene names. However, since uniq onnly filteres adjacent lines, I had to use sort -u to find unique gene names. This is the command I used:
+cat unique_genes.txt | grep -v "gene" | tail -n +2| sort -u > filtered_unique_genes.txt
+
+Then to count the number of unique genes, I used this command:
+wc -l filtered_unique_genes.txt > count_unique_genes.txt
+head -n 5 filtered_unique_genes.txt > first_five_unique_genes.txt
+
+This resulted in 5726 unique genes, and the first five are:
+aaaT
+aaeA
+aaeA_1
+aaeA_2
+aaeB
+
+
+The script is available on GitHub under the name "script_unique_genes.sh", the list of all unique genes is under "filtered_unique_genes.txt", the count of unique genes is under "count_unique_genes.txt", and the first five unique genes is under "first_five_unique_genes.txt" 
