@@ -30,3 +30,18 @@ The result of running this bash script is the following:
 Indicating that GCA_000006745.1_ASM674v1 has the highest gene count of 3594 genes.
 
 The script is saved on GitHub under "prodigal_script.sh", the results under "prodigal_results.tsv", and the highest gene count under "highest_genes.txt"
+
+
+4) I ran a bash script on all GCA .fna files from the 14 genomes we downloaded. The script first intitiates a .tsv file with a column for file name and column for gene count. Then, using a for loop, I ran prokka on each file. To count the instances of CDS in each genome, I ran a grep command on the .tsv files output by prokka: "grep -c 'CDS' filename.tsv". Finally, I recorded the numbers in the .tsv file mentioned above. To systematically save each prokka analysis, I defined a counter variable, and save each prokka analysis in a directory named "prokka_raw_counter" using this command:
+"prokka --quiet $file --outdir prokka_raw_$counter"
+
+Then, I ran this command to find the .tsv file output by prokka:
+"grep_file=$(find prokka_raw_$counter -name '*.tsv')"
+
+Finally, I ran this command to save the grep result in my .tsv file:
+"echo -e "$file\t$(grep -c "CDS" $grep_file)" >> prokka_results.tsv"
+
+
+Comparing the prokka CDS counts with the prodigal counts, there are slight differences. Across the board, prodigal had either an equal or higher number of genes for each genomes. I think the reason behind this is that prodigal does not specif the gene type, while prokka labels each genes as either CDS or tRNA (and maybe other labels as well) in the .tsv file under the ftype column. Thus, looking at only CDS genes from prokka will always result in one of two cases. a) Prokka only found CDS genes, and thus has an equal number of CDS genes to the genes found by prodigal. b) Prokka found more than one type of gene, and thus has a smaller number of CDS genes to the genes found by prodigal.
+
+The script file is available on Github under "prokka_script.sh", and the results are under "prokka_results.tsv"  
