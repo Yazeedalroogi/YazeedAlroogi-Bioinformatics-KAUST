@@ -28,6 +28,12 @@ The code for this problem is saved on GitHub under "P5_gene_finder.py"
 
 
 
-6) Added a filter for the Shine-Dalgarno sequence, which searches for the Shine-Dalgarno sequence upstream of the start codon. How far the algorithm searches is 20bp by default, but can be specificed by the user as a parameter. In this implementation, 20bp away means that the algorithm looks at the 20bps upstream of a start codon and searches for the Shine-Dalgarno sequence in those 20bps. For efficiency, this step is performed immediately after finding a start codon. If the Shine-Dalgarno sequence exists, then the algorithm searches for the stop codon. But if the sequence does not exist, the programs skips to looking for the next start codon.
+6) Added a filter for the Shine-Dalgarno sequence, which searches for the Shine-Dalgarno sequence upstream of the start codon. How far the algorithm searches is 20bp by default, but can be specificed by the user as a parameter. In this implementation, 20bp away means that the algorithm looks at the 20bps upstream of a start codon and searches for the Shine-Dalgarno sequence in those 20bps. For efficiency, this step is performed immediately after finding a start codon. If the Shine-Dalgarno sequence exists, then the algorithm searches for the stop codon. But if the sequence does not exist, the programs skips to looking for the next start codon. I ran the algorithm on the 14 bacteria genomes using a bash script similar to the one used in problem 4 with Shine_Dalgarno range = 20bp and two different values for the codon minimum length: 1 and 100. For the 1 codon minimum length, 2809 unique genes were recorded. For the 100 codon minimum length, 1258 unique genes were recorded. The genes were translated into proteins and saved in .txt files for each codon minimum value. To count the unique genes the command "wc -l" was used on the result files. 
 
 The code for this problem is saved on GitHub under "P6_gene_finder.py"
+
+The bash script is save under "P6_gene_finder.sh"
+
+The files containing all the unique translated proteins are under "P6_gene_finder_no_codonMin_results.txt" and "P6_gene_finder_100_codonMin_results.txt"
+
+The count files are under "P6_gene_finder_no_codonMin_count.txt" and "P6_gene_finder_100_codonMin_count.txt"
